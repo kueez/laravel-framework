@@ -6,6 +6,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Database\Query\JoinClause;
 use Illuminate\Database\Grammar as BaseGrammar;
+use RuntimeException;
 
 class Grammar extends BaseGrammar
 {
@@ -682,6 +683,18 @@ class Grammar extends BaseGrammar
         })->implode(', ');
 
         return "insert into $table ($columns) values $parameters";
+    }
+
+    /**
+     * Compile an insert ignore statement into SQL.
+     *
+     * @param  \Illuminate\Database\Query\Builder  $query
+     * @param  array  $values
+     * @return string
+     */
+    public function compileInsertOrIgnore(Builder $query, array $values)
+    {
+        throw new RuntimeException('This database engine does not support insert or ignore.');
     }
 
     /**

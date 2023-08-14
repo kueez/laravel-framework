@@ -46,6 +46,18 @@ class MySqlGrammar extends Grammar
     }
 
     /**
+     * Compile an insert ignore statement into SQL.
+     *
+     * @param  \Illuminate\Database\Query\Builder  $query
+     * @param  array  $values
+     * @return string
+     */
+    public function compileInsertOrIgnore(Builder $query, array $values)
+    {
+        return substr_replace($this->compileInsert($query, $values), ' ignore', 6, 0);
+    }
+
+    /**
      * Compile a single union statement.
      *
      * @param  array  $union
